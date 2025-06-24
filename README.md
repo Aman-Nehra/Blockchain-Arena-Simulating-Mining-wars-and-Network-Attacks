@@ -5,4 +5,4 @@ Name: Aman Nehra
 
 Roll Number: 23B1051
 ## Running Instructions:
-For P2P.py : python3 P2P.py 
+Running instructions for each code are provided in their respective directory's Readme.md files

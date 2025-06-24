@@ -2,6 +2,7 @@ import argparse
 import random
 import heapq
 import matplotlib.pyplot as plt
+from graphviz import Digraph
 import seaborn as sns
 import pandas as pd
 from collections import deque
@@ -672,6 +673,42 @@ class BlockchainAnalyzer:
         plt.savefig("boxplot_branch_length_by_type.png")
         plt.show()
 
+    def plot_block_tree(self, peer_id, format='pdf'):
+        """
+        Plots the block tree of a specific peer using Graphviz with high clarity.
+        """
+        peer = self.sim.network.peers[peer_id]
+        tree = peer.block_tree
+
+        dot = Digraph(comment=f"Peer {peer_id} Block Tree")
+
+        # Set high resolution & large figure size for long chains
+        dot.attr(
+            size='30,10',           # canvas size (width,height) in inches
+            rankdir='LR',           # left to right layout
+            splines='true',
+            nodesep='0.4',          # spacing between nodes
+            ranksep='0.6',          # spacing between ranks (layers)
+            dpi='300'               # high DPI
+        )
+        dot.attr('node', shape='ellipse', fontsize='18')  # large font
+
+        for blk_id, block in tree.blocks.items():
+            label = blk_id if blk_id == "blk_0" else blk_id.split("_")[1]
+            dot.node(blk_id, label=label)
+
+        for blk_id, block in tree.blocks.items():
+            if block.parent_id:
+                dot.edge(block.parent_id, blk_id)
+
+        output_path = f"peer_{peer_id}_block_tree"
+        dot.render(output_path, format=format, cleanup=True)
+        print(f"Block tree for Peer {peer_id} saved as {output_path}.{format}")
+
+    def plot_all_block_trees(self, format='png'):
+        for peer in self.sim.network.peers:
+            self.plot_block_tree(peer.peer_id, format=format)
+    
     def run_all(self):
         print("Analyzing Longest Chain Contributions...")
         self.analyze_longest_chain_contribution()
@@ -681,7 +718,7 @@ class BlockchainAnalyzer:
         self.analyze_branch_lengths()
         self.plot_branch_count_per_peer()
         self.plot_branch_length_distribution_by_type()
-
+        self.plot_all_block_trees()
         print("Analysis complete.")
 
 

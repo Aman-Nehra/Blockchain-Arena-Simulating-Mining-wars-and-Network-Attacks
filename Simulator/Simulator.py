@@ -689,7 +689,7 @@ class BlockchainAnalyzer:
             splines='true',
             nodesep='0.4',          # spacing between nodes
             ranksep='0.6',          # spacing between ranks (layers)
-            dpi='300'               # high DPI
+            dpi='1000'               # high DPI
         )
         dot.attr('node', shape='ellipse', fontsize='18')  # large font
 

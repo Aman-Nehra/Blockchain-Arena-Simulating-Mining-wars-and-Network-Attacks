@@ -6,3 +6,4 @@ This directory contains the implementation of the Peer-to-Peer network which use
 P2P.py : 
 ```bash 
 python3 P2P.py
+```

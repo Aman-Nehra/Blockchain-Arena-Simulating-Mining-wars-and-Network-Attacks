@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Item Tracker</title>
+    <link rel="stylesheet" href="DApp.css">
+</head>
+<body>
+    <h1>Item Tracker DApp</h1>
+
+    <button id="connectButton">Connect Wallet</button>
+
+    <section id="register">
+        <h2>Register New Item</h2>
+        <input type="text" id="itemName" placeholder="Item Name"/>
+        <button onclick="registerItem()">Register</button>
+    </section>
+
+    <section id="items">
+        <h2>Registered Items</h2>
+        <div id="itemList"></div>
+    </section>
+
+    <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
+    <script src="DApp.js"></script>
+</body>
+</html>
